@@ -1,5 +1,7 @@
 from math import ceil
 
+from typing import List
+
 from music.notes import Note
 
 notes_in_scale = 12
@@ -14,7 +16,8 @@ def from_base_12(unit_values):
     return result
 
 
-def to_base_12(integer, padding=0) -> list[Note]:
+def to_base_12(integer, padding=0) -> List[Note]:
+
     result = []
 
     while integer:
@@ -27,19 +30,19 @@ def to_base_12(integer, padding=0) -> list[Note]:
     return result
 
 
-def encode_qword(qword: bytes) -> list[Note]:
+def encode_qword(qword: bytes) -> List[Note]:
     assert len(qword) == 4
     value = int.from_bytes(qword, "big")
     return list(map(lambda v: Note(v), to_base_12(value, 9)))
 
 
-def decode_nnote(nnote: list[Note]) -> bytes:
+def decode_nnote(nnote: List[Note]) -> bytes:
     assert len(nnote) == 9
     value = from_base_12(nnote)
     return int.to_bytes(value, 4, "big")
 
 
-def encode(data: bytes) -> list[Note]:
+def encode(data: bytes) -> List[Note]:
     qwords_required = ceil(len(data) / 4)
     padding_required = qwords_required * 4 - len(data)
 
@@ -53,7 +56,7 @@ def encode(data: bytes) -> list[Note]:
     return notes
 
 
-def decode(data: list[Note]) -> bytes:
+def decode(data: List[Note]) -> bytes:
 
     assert len(data) % 9 == 0
 
