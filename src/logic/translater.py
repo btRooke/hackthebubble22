@@ -19,7 +19,7 @@ class Translater:
 
 
     # Take a chunk of samples and attempt to translate them
-    def translate(self, data: List[np.int16]) -> Tuple[List[np.int16], List[np.int16]]:
+    def translate(self, data: List[np.int16]) -> Tuple[List[np.int16], List[np.int16], float]:
 
         # Convert data to numpy format
         np_data = np.fromstring(data, np.int16)
@@ -30,8 +30,8 @@ class Translater:
         # Match data to the decibel scale, discarding imaginary values
         scaled = 10.0 * np.log10(abs(transformed))
 
-        self.try_add(scaled)
-        return np_data, scaled
+        added = self.try_add(scaled)
+        return np_data, scaled, added
 
 
     # Decide whether to add the FFT result to history
@@ -39,8 +39,6 @@ class Translater:
         # Find the loudest frequency and the 90th-percentile amplitude
         percentile = np.percentile(fft, 90)
         peak = np.argmax(fft)
-
-        #print("90th percentile: " + str(percentile) + ", peak: " + str(fft[peak]))
 
         # If the loudest frequency is not significantly above the 90th percentile, ignore it
         if fft[peak] - percentile < 20:
@@ -54,20 +52,20 @@ class Translater:
         # Otherwise, add the FFT result to the history
         else:
             self.history.append((peak, fft[peak]))
+            return None
         
 
     # Check whether the history array represents a consistent frequency for a significant time period
-    def evaluate_history(self):
+    def evaluate_history(self) -> bool:
         # Discard short length (< 0.2s)
-        if len(self.history) * self.fft_time < 0.2:
+        if len(self.history) * self.fft_time < 0.1:
             self.history.clear()
-            return False
+            return None
 
         # Find most common frequency
-        m = mode([x[0] for x in self.history])[0] * self.bin_size
-        print(m)
-
+        m = mode([x[0] for x in self.history])[0][0] * self.bin_size
+    
         self.history.clear()
-        return True
+        return m
 
         
