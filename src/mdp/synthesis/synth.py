@@ -46,7 +46,7 @@ def play_notes(notes, durations, breaks):
         note_break = breaks[i]
 
         if i == 0:
-            duration = 1.2
+            duration = 1.5
 
         signal = sine_wave_signal(duration, note_frequency(note, 6))
         notes_bytes.append(to_bytes(signal, 0.5))
