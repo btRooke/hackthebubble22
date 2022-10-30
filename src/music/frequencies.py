@@ -7,6 +7,10 @@ fundamental_octave = 4
 fundamental_frequency: float = 440.0  # 440Hz tuning
 
 
+def note_frequency(note: Note, octave: int = 5):
+    return shift_frequency_to_octave(offset_frequency((int(note) - int(fundamental)) % 12), octave)
+
+
 def octave_range(n: int) -> (float, float):
     """
     Get the range frequencies in an octave.
@@ -49,7 +53,7 @@ def shift_frequency_to_octave(f: float, n: int) -> float:
     return shifted_f
 
 
-def offset_frequency(n: float) -> float:
+def offset_frequency(n: int) -> float:
     """
     Compute note frequency as semitones from the fundamental (A).
 
