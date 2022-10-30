@@ -43,11 +43,11 @@ class Translater:
         #print("90th percentile: " + str(percentile) + ", peak: " + str(fft[peak]))
 
         # If the loudest frequency is not significantly above the 90th percentile, ignore it
-        if fft[peak] - percentile < 10:
+        if fft[peak] - percentile < 20:
             return self.evaluate_history()
         
         # If the loudest frequency does not match the history, a new character has been started
-        elif len(self.history) > 0 and abs(peak - self.history[-1][0]) > 1:  
+        elif len(self.history) > 0 and abs(peak - self.history[-1][0]) > 2:
             return self.evaluate_history()
             
 
@@ -58,8 +58,6 @@ class Translater:
 
     # Check whether the history array represents a consistent frequency for a significant time period
     def evaluate_history(self):
-        #print(self.history)
-
         # Discard short length (< 0.2s)
         if len(self.history) * self.fft_time < 0.2:
             self.history.clear()
