@@ -1,15 +1,12 @@
-import time
 import pyaudio
 import numpy as np
 
-from encoding.encode import encode
-from src.music.frequencies import note_frequency
-from src.music.notes import Note
+from mdp.music.frequencies import note_frequency
+from mdp.music.notes import Note
 
 # thanks to https://stackoverflow.com/questions/8299303/generating-sine-wave-sound-in-python
 
 pyaudio_obj = pyaudio.PyAudio()
-
 sample_rate = 44100
 
 
@@ -74,5 +71,3 @@ def simple_play_notes(notes, duration=0.25, note_break=0.1):
         [note_break for _ in range(len(notes))]
     )
 
-
-simple_play_notes([Note.C, Note.E, Note.G, Note.Bb] * 10)

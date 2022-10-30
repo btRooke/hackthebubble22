@@ -16,6 +16,7 @@ class Translater:
         
         # Translation parameters
         self.history = []
+        self.error = 0
 
 
     # Take a chunk of samples and attempt to translate them
@@ -41,7 +42,7 @@ class Translater:
         peak = np.argmax(fft)
 
         # If the loudest frequency is not significantly above the 90th percentile, ignore it
-        if fft[peak] - percentile < 20:
+        if fft[peak] < 60 or fft[peak] - percentile < 20:
             return self.evaluate_history()
         
         # If the loudest frequency does not match the history, a new character has been started
@@ -59,7 +60,12 @@ class Translater:
     def evaluate_history(self) -> bool:
         # Discard short length (< 0.2s)
         if len(self.history) * self.fft_time < 0.1:
-            self.history.clear()
+            self.error += 1
+
+            if self.error >= 5:
+                self.error = 0
+                self.history.clear()
+
             return None
 
         # Find most common frequency

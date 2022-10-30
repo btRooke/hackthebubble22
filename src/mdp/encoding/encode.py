@@ -2,7 +2,7 @@ from math import ceil
 
 from typing import List
 
-from music.notes import Note
+from mdp.music.notes import Note
 
 notes_in_scale = 12
 

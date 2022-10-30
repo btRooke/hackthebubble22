@@ -2,7 +2,8 @@ from typing import Tuple
 import pyaudio
 import numpy as np
 import matplotlib.pyplot as plt
-import translater
+
+from mdp.logic.translater import Translater
 
 DEBUG = False
 
@@ -12,7 +13,7 @@ def create_stream(data_format: int, sample_rate: int) -> Tuple[pyaudio.PyAudio, 
     return audio, stream
 
 
-def listen(stream: pyaudio.Stream, t: translater.Translater, ax = None, raw_ax = None, fft_ax = None):
+def listen(stream: pyaudio.Stream, t: Translater, ax = None, raw_ax = None, fft_ax = None):
     sample_rate = t.sample_rate
     chunk_size = t.chunk_size
 
@@ -77,7 +78,7 @@ if __name__ == "__main__":
 
     # Set up stream and translater
     (audio, stream) = create_stream(pyaudio.paInt16, 44100)
-    t = translater.Translater(44100, 2048)
+    t = Translater(44100, 2048)
 
     # Start listenings
     try:

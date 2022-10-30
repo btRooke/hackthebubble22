@@ -1,7 +1,6 @@
 import unittest
 
-from music.frequencies import octave_range, shift_frequency_to_octave
-from music.notes import Note
+from mdp.music.notes import Note
 from music.recognition import note_from_frequency
 
 

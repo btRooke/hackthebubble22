@@ -1,5 +1,5 @@
 from encoding.encode import notes_in_scale
-from music.notes import Note
+from mdp.music.notes import Note
 
 
 def transpose_note(note: Note, key: Note):

@@ -1,4 +1,4 @@
-from music.notes import Note
+from mdp.music.notes import Note
 
 # tuning config
 
