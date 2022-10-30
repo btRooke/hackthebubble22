@@ -14,6 +14,16 @@ def closest_index(f: float, octave_frequencies: list[float]) -> int:
 
 
 def note_from_frequency(f: float) -> Note:
+
+    """
+    Given a frequency, return the closest note.
+
+    Any octave.
+
+    :param f: A frequency.
+    :return: The closest note.
+    """
+
     shifted_f = shift_frequency_to_octave(f, fundamental_octave)
     closest_note_index = closest_index(shifted_f, fundamental_octave_frequencies)
     return Note(closest_note_index)

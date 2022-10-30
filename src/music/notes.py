@@ -2,6 +2,7 @@ from enum import IntEnum
 
 
 class Note(IntEnum):
+
     C = 0
     Db = 1
     D = 2
@@ -14,3 +15,6 @@ class Note(IntEnum):
     A = 9
     Bb = 10
     B = 11
+
+    def __repr__(self):
+        return f"<{self.name}, {self.value}>"
