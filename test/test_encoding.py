@@ -9,4 +9,5 @@ class EncodingTest(unittest.TestCase):
     def test_encode(self):
         to_send = "Hello, world!!!!".encode()
         notes = encode(to_send)
+        print(notes)
         self.assertEqual(to_send, decode(notes))
