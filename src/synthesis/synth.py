@@ -66,7 +66,7 @@ def play_notes(notes, durations, breaks):
     output_stream.close()
 
 
-def simple_play_notes(notes, duration=0.5, note_break=0.5):
+def simple_play_notes(notes, duration=0.25, note_break=0.1):
 
     play_notes(
         notes,
@@ -75,4 +75,4 @@ def simple_play_notes(notes, duration=0.5, note_break=0.5):
     )
 
 
-simple_play_notes([Note.C, Note.Eb, Note.G, Note.B])
+simple_play_notes([Note.C, Note.E, Note.G, Note.Bb] * 10)
