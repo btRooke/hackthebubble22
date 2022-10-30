@@ -2,7 +2,7 @@ import unittest
 
 from encoding.encode import encode, to_base_12, decode
 from music.frequencies import octave_range, shift_frequency_to_octave
-from music.notes import Note
+from mdp.music.notes import Note
 from music.transposition import transpose_note
 
 

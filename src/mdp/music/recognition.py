@@ -2,7 +2,7 @@ import numpy as np
 from numpy import ndarray
 
 from music.frequencies import offset_frequency, fundamental, shift_frequency_to_octave, fundamental_octave
-from music.notes import Note
+from mdp.music.notes import Note
 
 fundamental_octave_frequencies = [offset_frequency(i - int(fundamental)) for i in range(12)]
 
