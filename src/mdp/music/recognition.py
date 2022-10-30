@@ -6,7 +6,7 @@ from numpy import ndarray
 from mdp.music.frequencies import offset_frequency, fundamental, shift_frequency_to_octave, fundamental_octave, note_frequency
 from mdp.music.notes import Note
 
-fundamental_octave_frequencies = [note_frequency(n) for n in Note]
+fundamental_octave_frequencies = [note_frequency(n, 4) for n in Note]
 
 
 def closest_index(f: float, octave_frequencies: List[float]) -> int:
