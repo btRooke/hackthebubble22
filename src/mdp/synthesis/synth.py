@@ -45,10 +45,13 @@ def play_notes(notes, durations, breaks):
         duration = durations[i]
         note_break = breaks[i]
 
-        signal = sine_wave_signal(duration, note_frequency(note, 5))
+        if i == 0:
+            duration = 1.2
+
+        signal = sine_wave_signal(duration, note_frequency(note, 6))
         notes_bytes.append(to_bytes(signal, 0.5))
 
-        signal = sine_wave_signal(note_break, note_frequency(note, 5))
+        signal = sine_wave_signal(note_break, note_frequency(note, 6))
         notes_bytes.append(to_bytes(signal, 0))
 
     output_stream = pyaudio_obj.open(format=pyaudio.paFloat32,
