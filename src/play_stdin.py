@@ -14,12 +14,6 @@ encoded = encode(data)
 
 print(f"Playing {len(encoded)} notes...")
 
-print(encoded)
-
-note_freqs = [note_frequency(note, 5) for note in encoded]
-print(note_freqs)
-
-
 simple_play_notes(encoded, 0.4, 0.3)
 
 print("Done!")
