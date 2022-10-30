@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sounddevice
 import pyaudio
 from mdp.logic import listener
 from mdp.logic import translater
@@ -11,6 +12,8 @@ from mdp.encoding.encode import decode
 t = translater.Translater(44100, 2048)
 
 frequencies = []
+
+print("Listening...")
 
 while True:
 
