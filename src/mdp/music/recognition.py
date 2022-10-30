@@ -3,12 +3,7 @@ from typing import List
 import numpy as np
 from numpy import ndarray
 
-<<<<<<< HEAD
-from mdp.music.frequencies import offset_frequency, fundamental, shift_frequency_to_octave, fundamental_octave
-=======
-from mdp.music.frequencies import offset_frequency, fundamental, shift_frequency_to_octave, fundamental_octave, \
-    note_frequency
->>>>>>> a9c05e5d1bb9a71dc22b620be71acf11e168d24c
+from mdp.music.frequencies import offset_frequency, fundamental, shift_frequency_to_octave, fundamental_octave, note_frequency
 from mdp.music.notes import Note
 
 fundamental_octave_frequencies = [note_frequency(n) for n in Note]
