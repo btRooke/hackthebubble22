@@ -38,7 +38,7 @@ class Translater:
     # Decide whether to add the FFT result to history
     def try_add(self, fft: List[np.int16]) -> bool:
         # Find the loudest frequency and the 90th-percentile amplitude
-        percentile = np.percentile(fft, 90)
+        percentile = np.percentile(fft, 75)
         peak = np.argmax(fft)
 
         # If the loudest frequency is not significantly above the 90th percentile, ignore it
@@ -59,7 +59,7 @@ class Translater:
     # Check whether the history array represents a consistent frequency for a significant time period
     def evaluate_history(self) -> bool:
         # Discard short length (< 0.2s)
-        if len(self.history) * self.fft_time < 0.1:
+        if len(self.history) * self.fft_time < 0.2:
             self.error += 1
 
             if self.error >= 5:
