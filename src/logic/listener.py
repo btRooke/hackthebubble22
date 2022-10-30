@@ -4,24 +4,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import translater
 
-DEBUG = True
+DEBUG = False
 
 def create_stream(data_format: int, sample_rate: int) -> Tuple[pyaudio.PyAudio, pyaudio.Stream]:
-
     audio = pyaudio.PyAudio()
-
-    stream = audio.open(
-        format = data_format,
-        rate = sample_rate,
-        channels = 1,
-        input = True
-    )
-
+    stream = audio.open(format = data_format, rate = sample_rate, channels = 1, input = True)
     return audio, stream
 
 
-def listen(stream: pyaudio.Stream, t: translater.Translater, ax, raw_ax, fft_ax):
-    
+def listen(stream: pyaudio.Stream, t: translater.Translater, ax = None, raw_ax = None, fft_ax = None):
     sample_rate = t.sample_rate
     chunk_size = t.chunk_size
 
@@ -53,7 +44,7 @@ def listen(stream: pyaudio.Stream, t: translater.Translater, ax, raw_ax, fft_ax)
             (raw, fft, added) = t.translate(data)
 
             if added:
-                print(added)
+                yield added
 
             if DEBUG:
                 raw_ax.set_xdata(raw_x)
@@ -73,15 +64,16 @@ def listen(stream: pyaudio.Stream, t: translater.Translater, ax, raw_ax, fft_ax)
 
 
 if __name__ == "__main__":
-    if DEBUG:
-        # Set up plots with random data
-        f, ax = plt.subplots(2)
+    DEBUG = True
 
-        x = np.arange(10000)
-        y = np.random.randn(10000)
+    # Set up plots with random data
+    f, ax = plt.subplots(2)
 
-        raw_ax, = ax[0].plot(x, y)
-        fft_ax, = ax[1].plot(x, y)
+    x = np.arange(10000)
+    y = np.random.randn(10000)
+
+    raw_ax, = ax[0].plot(x, y)
+    fft_ax, = ax[1].plot(x, y)
 
     # Set up stream and translater
     (audio, stream) = create_stream(pyaudio.paInt16, 44100)
@@ -89,10 +81,7 @@ if __name__ == "__main__":
 
     # Start listenings
     try:
-        if DEBUG:
-            listen(stream, t, ax, raw_ax, fft_ax)
-        else:
-            listen(stream, t, None, None, None)
+        listen(stream, t, ax, raw_ax, fft_ax)
 
     except Exception as e:
         print(e)
