@@ -1,4 +1,4 @@
-# Musical "Datagram" Protocol
+# Musical Datagram Protocol
 
 Built with [@Sean-AP](https://github.com/Sean-AP/) in under 12 hours for Hack the Bubble 2022.
 
